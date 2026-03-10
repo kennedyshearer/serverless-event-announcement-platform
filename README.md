@@ -14,36 +14,6 @@ Frontend assets are hosted on Amazon S3 as a static website. Users interact with
 
 When a new event is created, the system updates the events storage file in S3 and publishes a notification through Amazon SNS, which sends email alerts to subscribed users.
 
-### Key Services
-
-- Amazon S3 – Static website hosting and event data storage
-- Amazon SNS – Email notification delivery
-- AWS Lambda – Backend processing for subscriptions and event creation
-- Amazon API Gateway – REST API interface
-- IAM – Access control between AWS services
-
----
-
-## System Workflow
-
-1. Users visit the static website hosted on S3.
-2. Users submit email subscriptions or event creation requests through web forms.
-3. API Gateway routes the request to the appropriate Lambda function.
-4. The Lambda function processes the request:
-   - Subscribes the user to the SNS topic
-   - Stores new event data in the S3 events file
-5. SNS distributes email notifications to all subscribers.
-
----
-
-## Key Features
-
-- Fully serverless architecture
-- Email-based event notifications
-- Simple event management interface
-- API-driven backend services
-- Scalable and cost-efficient design
-
 ---
 
 ## Architecture Diagram
@@ -56,21 +26,85 @@ When a new event is created, the system updates the events storage file in S3 an
 
 ---
 
-## Repository Structure
+### Key Services
 
-```bash
-frontend/
-index.html
-styles.css
-events.json
+- Amazon S3 – Static website hosting and event data storage
+- Amazon SNS – Email notification delivery
+- AWS Lambda – Backend processing for subscriptions and event creation
+- Amazon API Gateway – REST API interface
+- IAM – Access control between AWS services
 
-lambda/
-subscribe-function/
-create-event-function/
+---
 
-api/
-api-gateway-config
+## Workflow
+
+```text
+User opens event website
+        ↓
+Frontend hosted on S3
+        ↓
+User submits subscription or new event
+        ↓
+API Gateway receives request
+        ↓
+Lambda processes request
+        ↓
+SNS updates subscribers or sends notifications
+        ↓
+Event data stored in S3 JSON file
 ```
+
+---
+
+## Key AWS Configuration
+
+Example configuration screenshots from the infrastructure.
+
+<p align="center">
+  <img src="https://i.gyazo.com/96adfca2f4dc09add01d1c67ae457815.png" alt="SNS Topic Configuration" width="700">
+  <br>
+  <sub>Figure 2: SNS Topic Configuration</sub>
+</p>
+
+<p align="center">
+  <img src="https://i.gyazo.com/aeb6668b4c236b9fa48304077a461e4a.png" alt="API Gateway Endpoint" width="700">
+  <br>
+  <sub>Figure 3: API Gateway Endpoint</sub>
+</p>
+
+---
+
+## Application Interface
+
+Example of the event listing interface and subscription functionality.
+
+<p align="center">
+  <img src="https://i.gyazo.com/a5335804c11b0381c1b3dc9e2f32cebc.png" alt="Event Website Interface" width="700">
+  <br>
+  <sub>Figure 4: Event Website Interface</sub>
+</p>
+
+<p align="center">
+  <img src="https://i.gyazo.com/407db8ca96936fa0e7d092996b1b755f.png" alt="Successful Event Creation" width="700">
+  <br>
+  <sub>Figure 5: Successful Event Creation</sub>
+</p>
+
+<p align="center">
+  <img src="https://i.gyazo.com/af81acb96ca383e5eef9959c0cfd153f.png" alt="Email Delivery" width="700">
+  <br>
+  <sub>Figure 6: Email Delivery</sub>
+</p>
+
+---
+
+## Key Features
+
+- Fully serverless architecture
+- Email-based event notifications
+- Simple event management interface
+- API-driven backend services
+- Scalable and cost-efficient design
 
 ---
 
@@ -95,10 +129,3 @@ Serverless services reduce operational costs because resources only run when nee
 - Add subscription management for users
 
 ---
-
-## Skills Demonstrated
-
-- Serverless architecture design
-- API development with API Gateway
-- Event-driven workflows
-- AWS service integration
